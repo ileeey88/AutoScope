@@ -1,0 +1,523 @@
+/* База */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --color-bg: #eeeded;
+  --color-surface: #ffffff;
+  --color-text: #131a22;
+  --color-muted: #363f49;
+  --color-accent: #c8102e;
+  --color-accent-dark: #8f0b20;
+  --color-border: #000000a9;
+  --radius: 10px;
+  --shadow: 0 2px 8px rgba(20, 40, 60, 0.08);
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+main {
+  flex-grow: 1;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+h1 { font-size: 1.85rem; margin: 0 0 1rem; }
+h2 { font-size: 1.3rem; margin: 1.5rem 0 0.75rem; }
+h3 { font-size: 1.05rem; margin: 0 0 0.5rem; }
+.lead { font-size: 1.1rem; color: var(--color-muted); }
+
+/* Утилиты */
+.hidden { display: none !important; }
+.container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+  overflow-x: hidden; 
+}
+
+/* Шапка */
+
+.site-header {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.site-header__inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--color-text);
+}
+
+.logo img { width: 40px; height: 40px; }
+
+.main-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.main-nav a {
+  display: inline-block;
+  padding: 0.35rem 0.5rem;
+  color: var(--color-text);
+  border-radius: 6px;
+}
+
+.main-nav a:hover,
+.main-nav a[aria-current="page"] {
+  color: var(--color-accent);
+  background: #fdecef;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Счетчик сравнения */
+.compare-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-accent);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.compare-counter__badge {
+  background: white;
+  color: var(--color-accent);
+  border-radius: 50%;
+  padding: 0 6px;
+  font-size: 0.8rem;
+  min-width: 18px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .site-header__inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+  }
+  .logo { grid-column: 1; margin: 0; }
+  .header-right { grid-column: 2; margin: 0; }
+  .main-nav {
+    grid-column: 1 / -1;
+    width: 100%;
+    margin-top: 5px;
+  }
+  .main-nav ul {
+    justify-content: flex-start;
+    gap: 15px;
+  }
+}
+
+/* Формы и кнопки */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.field label { font-size: 0.85rem; color: var(--color-muted); }
+
+.field input,
+.field select,
+.field textarea {
+  font: inherit;
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--color-text);
+}
+
+.field input.is-invalid,
+.field select.is-invalid,
+.field textarea.is-invalid {
+  border-color: var(--color-accent);
+  background: #fdecef;
+}
+
+.error-message {
+  font-size: 0.8rem;
+  color: red;
+  min-height: 1.2em;
+}
+.error-message:empty { visibility: hidden; }
+
+.btn {
+  font: inherit;
+  padding: 0.55rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: var(--color-accent);
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn:hover { background: var(--color-accent-dark); }
+
+.btn--ghost {
+  background: #fff;
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+.btn--ghost:hover { background: #c4c4c4; }
+
+.btn-small {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+/* Фильтры */
+
+.filters {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.base-filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  align-items: end;
+}
+
+.toggle-filters-btn {
+  width: fit-content;
+  padding: 0.5rem 1rem;
+}
+
+#advanced-filters {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.filter-group {
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.filter-group h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+}
+
+.filter-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.filter-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 768px) {
+  #advanced-filters { grid-template-columns: 1fr 1fr; }
+  #advanced-filters .filter-group:last-child { grid-column: 1 / -1; }
+}
+
+@media (max-width: 768px) {
+  .filter-row { grid-template-columns: 1fr; gap: 0.75rem; }
+}
+
+/* Карточка авто */
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.card__media { aspect-ratio: 16 / 10; background: #e9eef2; }
+.card__media img { width: 100%; height: 100%; object-fit: cover; }
+
+.card__body {
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+.card__link { color: inherit; text-decoration: none; }
+.card__link:hover h3 { color: var(--color-accent); }
+.card__price { font-weight: 700; color: var(--color-accent); margin-top: auto; }
+
+/* Состояние "В сравнении" */
+.card.is-compared { border: 2px solid var(--color-accent); }
+.card.is-compared::before {
+  content: '✓ В сравнении';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--color-accent);
+  color: white;
+  padding: 4px 8px;
+  border-radius: var(--radius);
+  font-size: 0.75rem;
+  font-weight: bold;
+  z-index: 2;
+}
+
+.btn-card-compare { margin-top: auto; }
+#empty-notice { text-align: center; }
+
+/* Страница авто */
+
+.car-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.1rem;
+}
+
+.car-gallery, .car-info {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.car-page-photo { border-radius: var(--radius); }
+.price-tag { font-size: 1.5rem; font-weight: 700; color: var(--color-accent); margin: 0.75rem 0; }
+
+.spec-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.spec-list li { display: flex; justify-content: space-between; padding: 0.4rem 0; border-bottom: 1px dashed var(--color-border); }
+.spec-list dt { color: var(--color-muted); }
+.spec-list dd { margin: 0; font-weight: 600; }
+
+.car-actions { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+
+@media (min-width: 720px) {
+  h1 { font-size: 2.1rem; }
+  .car-layout { grid-template-columns: 1.1fr 1fr; }
+}
+
+/* =========================================
+   СРАВНЕНИЕ
+   ========================================= */
+.compare-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+.compare-table {
+  min-width: 640px;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  font-size: 0.95rem;
+}
+
+.compare-table th, .compare-table td {
+  padding: 1rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
+}
+
+.compare-table th:first-child { border-left: none; }
+.compare-table thead th { background: var(--color-accent); color: var(--color-bg); }
+.compare-table thead th:first-child { border-top-left-radius: var(--radius); }
+.compare-table thead th:last-child { border-top-right-radius: var(--radius); }
+.compare-table th[scope="row"] { color: var(--color-muted); font-weight: 500; }
+.compare-table tbody tr:last-child th, .compare-table tbody tr:last-child td { border-bottom: none; }
+
+/* Связь с продавцом */
+
+.contacts-layout,
+.contact-seller-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.contact-card, .feedback-form {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.feedback-form form { display: grid; gap: 0.75rem; }
+.form-success {
+  background: #d2eed6;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  margin-top: 1.5rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.seller-car-info-card { display: flex; flex-direction: column; }
+.seller-car-img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+}
+.seller-car-specs { margin-top: 1rem; font-size: 0.95rem; color: var(--color-muted); line-height: 1.6; }
+
+@media (min-width: 768px) {
+  .contact-seller-layout { grid-template-columns: 1fr 1.2fr; }
+  .contacts-layout { grid-template-columns: 1fr 1fr; }
+}
+
+/* История посещений */
+
+.history-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1rem; }
+.history-card {
+  display: flex;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  color: inherit;
+  transition: box-shadow 0.2s;
+}
+.history-card:hover { box-shadow: var(--shadow); }
+.history-card__img { width: 180px; height: 120px; object-fit: cover; flex-shrink: 0; }
+.history-card__body { padding: 1rem; display: flex; flex-direction: column; justify-content: center; }
+.history-card__body h3 { margin: 0 0 0.5rem; font-size: 1.1rem; }
+.history-card__price { font-weight: bold; color: var(--color-accent); margin-top: 0.5rem; }
+
+@media (max-width: 600px) {
+  .history-card { flex-direction: column; }
+  .history-card__img { width: 100%; height: 160px; }
+}
+
+/* Футер */
+
+.site-footer {
+  background: #1c2530;
+  color: #c7d2dc;
+  margin-top: 2rem;
+}
+
+.site-footer__inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.site-footer a { color: #fff; }
+.footer-col { flex: 1; min-width: 200px; }
+.footer-col p { margin: 5px 0; }

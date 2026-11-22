@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Каталог автомобилей — AutoScope</title>
+  <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="logo" href="index.html">
+        <img src="/static/img/logo.svg" alt="Логотип AutoScope">
+        <span>AutoScope</span>
+      </a>
+      <nav class="main-nav" aria-label="Основная навигация">
+        <ul>
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="catalog.html">Каталог</a></li>
+        </ul>
+      </nav>
+      <div class="header-right">
+        <a href="compare.html" class="compare-counter" id="compare-link" style="visibility: hidden;">
+          Сравнение <span class="compare-counter__badge" id="compare-count">0</span>
+        </a>
+        <a href="login.html" id="nav-login">Вход</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Каталог автомобилей</h1>
+    <p class="exchange-rate" id="exchange-rate">
+      Курс ЦБ: загрузка...
+    </p>
+    <form class="filters" id="filters-form" aria-label="Фильтры каталога">
+      <div class="base-filters">
+        <div class="field">
+          <label for="filter-brand">Марка</label>
+          <select id="filter-brand" name="brand">
+            <option value="">Любая</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="filter-body">Тип кузова</label>
+          <select id="filter-body" name="body">
+            <option value="">Любой</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="filter-sort">Сортировка</label>
+          <select id="filter-sort" name="sort">
+            <option value="price-up">По цене (возрастание)</option>
+            <option value="price-down">По цене (убывание)</option>
+            <option value="year">По году (новые)</option>
+            <option value="mileage">По пробегу</option>
+            <option value="power">По мощности</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn--ghost toggle-filters-btn" id="toggle-filters">
+        Показать все фильтры ▼
+      </button>
+      <div id="advanced-filters" class="advanced-filters hidden">
+        <div class="filter-group">
+          <h3>Цена, ₽</h3>
+          <div class="filter-row">
+            <div class="field">
+              <label for="filter-price-min">От</label>
+              <input id="filter-price-min" name="price_min" type="number" min="0" step="50000" placeholder="500 000">
+            </div>
+            <div class="field">
+              <label for="filter-price-max">До</label>
+              <input id="filter-price-max" name="price_max" type="number" min="0" step="50000" placeholder="5 000 000">
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <h3>Год выпуска</h3>
+          <div class="filter-row">
+            <div class="field">
+              <label for="filter-year-min">От</label>
+              <input id="filter-year-min" name="year_min" type="number" min="1990" max="2025" placeholder="2015">
+            </div>
+            <div class="field">
+              <label for="filter-year-max">До</label>
+              <input id="filter-year-max" name="year_max" type="number" min="1990" max="2025" placeholder="2024">
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <h3>Пробег, км</h3>
+          <div class="filter-row">
+            <div class="field">
+              <label for="filter-mileage-min">От</label>
+              <input id="filter-mileage-min" name="mileage_min" type="number" min="0" step="1000" placeholder="0">
+            </div>
+            <div class="field">
+              <label for="filter-mileage-max">До</label>
+              <input id="filter-mileage-max" name="mileage_max" type="number" min="0" step="1000" placeholder="100 000">
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <h3>Мощность, л.с.</h3>
+          <div class="filter-row">
+            <div class="field">
+              <label for="filter-power-min">От</label>
+              <input id="filter-power-min" name="power_min" type="number" min="50" step="10" placeholder="100">
+            </div>
+            <div class="field">
+              <label for="filter-power-max">До</label>
+              <input id="filter-power-max" name="power_max" type="number" min="50" step="10" placeholder="300">
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <h3>Дополнительно</h3>
+          <div class="filter-row">
+            <div class="field">
+              <label for="filter-transmission">Коробка передач</label>
+              <select id="filter-transmission" name="transmission">
+                <option value="">Любая</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="filter-drive">Привод</label>
+              <select id="filter-drive" name="drive">
+                <option value="">Любой</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="filter-actions">
+        <button class="btn" type="submit">Применить фильтры</button>
+        <button class="btn btn--ghost" type="reset">Сбросить всё</button>
+      </div>
+    </form>
+
+    <ul class="catalog-grid" id="catalog-grid">
+      <p>Загрузка автомобилей...</p>
+    </ul>
+    <h2 class="lead hidden" id="empty-notice">Ничего не найдено 🥺</h2>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="footer-col">
+        <strong>AutoScope</strong>
+        <p>г. Москва, ул. Примерная, 10</p>
+      </div>
+      <div class="footer-col">
+        <p>Телефон: <a href="tel:+74951234567">+7 (999) 123-45-67</a></p>
+        <p>Email: <a href="mailto:auto@scope.example">auto@scope.example</a></p>
+      </div>
+      <div class="footer-col">
+        <p>Режим работы: пн–сб 9:00–20:00, вс 10:00–18:00</p>
+        <p><a href="mailto:auto@scope.example">Написать нам</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/js/auth.js" defer></script>
+  <script src="/static/js/catalog.js" defer></script>
+</body>
+</html>

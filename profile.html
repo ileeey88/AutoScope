@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Профиль — AutoScope</title>
+  <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="logo" href="index.html">
+        <img src="/static/img/logo.svg" alt="Логотип AutoScope">
+        <span>AutoScope</span>
+      </a>
+      <nav class="main-nav" aria-label="Основная навигация">
+        <ul>
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="catalog.html">Каталог</a></li>
+        </ul>
+      </nav>
+      <div class="header-right">
+        <a href="compare.html" class="compare-counter" id="compare-link" style="visibility: hidden;">
+          Сравнение <span class="compare-counter__badge" id="compare-count">0</span>
+        </a>
+        <a href="login.html" id="nav-login">Вход</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Личный кабинет</h1>
+    
+    <div class="feedback-form" style="max-width: 600px; margin-bottom: 2rem;">
+      <h2>Ваши данные</h2>
+      <p><strong>Имя:</strong> <span id="profile-name">Загрузка...</span></p>
+      <p><strong>Email:</strong> <span id="profile-email"></span></p>
+      <p><strong>Дата регистрации:</strong> <span id="profile-date"></span></p>
+      
+      <button class="btn btn--ghost" id="btn-logout" style="margin-top: 1.5rem;">Выйти из аккаунта</button>
+    </div>
+
+    <section id="history-section" style="display: none;">
+      <h2>Недавно просмотренные</h2>
+      <ul class="history-list" id="history-list">
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="footer-col">
+        <strong>AutoScope</strong>
+        <p>г. Москва, ул. Примерная, 10</p>
+      </div>
+      <div class="footer-col">
+        <p>Телефон: <a href="tel:+74951234567">+7 (999) 123-45-67</a></p>
+        <p>Email: <a href="mailto:auto@scope.example">auto@scope.example</a></p>
+      </div>
+      <div class="footer-col">
+        <p>Режим работы: пн–сб 9:00–20:00, вс 10:00–18:00</p>
+        <p><a href="mailto:auto@scope.example">Написать нам</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/js/auth.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const res = await fetch('/api/me');
+        if (res.ok) {
+          const user = await res.json();
+          document.getElementById('profile-name').textContent = user.name;
+          document.getElementById('profile-email').textContent = user.email;
+          const date = new Date(user.created_at);
+          document.getElementById('profile-date').textContent = date.toLocaleDateString('ru-RU');
+        }
+      } catch (e) {
+        console.error('Ошибка загрузки профиля', e);
+      }
+
+      try {
+        const history = JSON.parse(localStorage.getItem('carshop_history') || '[]');
+        const section = document.getElementById('history-section');
+        const list = document.getElementById('history-list');
+
+        if (history.length > 0) {
+          section.style.display = 'block'; 
+          
+          list.innerHTML = history.map(car => `
+            <li>
+              <a href="car.html?id=${car.id}" class="history-card">
+                <img src="/static/${car.image_url}" alt="${car.brand} ${car.model}" class="history-card__img">
+                <div class="history-card__body">
+                  <h3>${car.brand} ${car.model} (${car.year})</h3>
+                  <p class="history-card__price">${car.price.toLocaleString('ru-RU')} ₽</p>
+                </div>
+              </a>
+            </li>
+          `).join('');
+        }
+      } catch (e) {
+        console.error('Ошибка загрузки истории', e);
+      }
+
+      document.getElementById('btn-logout').addEventListener('click', async () => {
+        await fetch('/api/logout', { method: 'POST' });
+        window.location.href = 'index.html';
+      });
+    });
+  </script>
+</body>
+</html>

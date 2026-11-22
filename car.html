@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Автомобиль — AutoScope</title>
+  <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="logo" href="index.html">
+        <img src="/static/img/logo.svg" alt="Логотип AutoScope">
+        <span>AutoScope</span>
+      </a>
+      <nav class="main-nav" aria-label="Основная навигация">
+        <ul>
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="catalog.html">Каталог</a></li>
+        </ul>
+      </nav>
+      <div class="header-right">
+        <a href="compare.html" class="compare-counter" id="compare-link" style="visibility: hidden;">
+          Сравнение <span class="compare-counter__badge" id="compare-count">0</span>
+        </a>
+        <a href="login.html" id="nav-login">Вход</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 id="car-title">Загрузка...</h1>
+    <div class="car-layout" id="car-content" style="display:none;">
+      <figure class="car-gallery">
+        <img class="car-page-photo" id="car-image" src="" alt="Фото автомобиля">
+      </figure>
+      <section class="car-info">
+        <h2 id="spec-title">Характеристики</h2>
+        <p class="price-tag" id="car-price"></p>
+        <ul class="spec-list" id="car-specs">
+        </ul>
+        <div class="car-actions">
+          <button class="btn btn--ghost" id="btn-favorite">Добавить к сравнению</button>
+          <a class="btn" id="btn-contact" href="#">Связаться с продавцом</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="footer-col">
+        <strong>AutoScope</strong>
+        <p>г. Москва, ул. Примерная, 10</p>
+      </div>
+      <div class="footer-col">
+        <p>Телефон: <a href="tel:+74951234567">+7 (999) 123-45-67</a></p>
+        <p>Email: <a href="mailto:auto@scope.example">auto@scope.example</a></p>
+      </div>
+      <div class="footer-col">
+        <p>Режим работы: пн–сб 9:00–20:00, вс 10:00–18:00</p>
+        <p><a href="mailto:auto@scope.example">Написать нам</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/js/auth.js" defer></script>
+  <script src="/static/js/car.js" defer></script>
+</body>
+</html>
