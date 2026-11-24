@@ -46,7 +46,7 @@
 ├── .gitignore
 └── README.md
 ```
-## Запуск на локальном компьютере
+## 🚀 Запуск на локальном компьютере
 Клонируйте репозиторий и перейдите в папку проекта:
 
 ```text
@@ -57,29 +57,29 @@ cd autoscope
 ```text
 python -m venv .venv
 ```
-# Windows:
+### Windows:
 ```text
 .venv\Scripts\activate
 ```
-# Linux/Mac:
+### Linux/Mac:
 ```text
 source .venv/bin/activate
 ```
-## Установите зависимости:
+### Установите зависимости:
 
 ```text
 pip install -r requirements.txt
 ```
-## Создайте файл .env в корне проекта и добавьте секретный ключ:
+### Создайте файл .env в корне проекта и добавьте секретный ключ:
 ```text
 env
 SECRET_KEY=super-secret-key-change-me-in-production
 ```
-## Наполните базу данных тестовыми данными:
+### Наполните базу данных тестовыми данными:
 ```text
 python -m app.seed
 ```
-## Запустите сервер:
+### Запустите сервер:
 ```text
 uvicorn app.main:app --reload --port 8000
 ```
