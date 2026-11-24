@@ -95,15 +95,15 @@ docker run -p 8000:8000 --env-file .env autoscope
 После запуска приложение будет доступно по адресу [http://localhost:8000](http://localhost:8000).
 
 ## 🗄️ Схема базы данных
-#Приложение использует 4 таблицы:
+* **Приложение использует 4 таблицы:**
 
-* ##users##: id, email (уникальный), password_hash, name, created_at.
+* **users**: id, email (уникальный), password_hash, name, created_at.
 
-* ##cars: id##, brand, model, year, body, engine, power, transmission, drive, mileage, price, description, image_url, seller_email.
+* **cars: id**, brand, model, year, body, engine, power, transmission, drive, mileage, price, description, image_url, seller_email.
 
-* ##favorites##: id, user_id (FK), car_id (FK), created_at. (Связь M:N между пользователями и машинами).
+* **favorites**: id, user_id (FK), car_id (FK), created_at. (Связь M:N между пользователями и машинами).
 
-* ##inquiries##: id, car_id (FK), name, email, phone, message, created_at.
+* **inquiries**: id, car_id (FK), name, email, phone, message, created_at.
 
 ## 🔒 Безопасность
 Пароли хранятся в базе данных только в виде bcrypt-хешей. Открытых паролей в БД нет (проверяется через DB Browser for SQLite).
