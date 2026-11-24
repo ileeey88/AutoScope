@@ -45,29 +45,37 @@
 ├── .env               # Секретные настройки (в .gitignore)
 ├── .gitignore
 └── README.md
+```
 ## Запуск на локальном компьютере
 Клонируйте репозиторий и перейдите в папку проекта:
 
-bash
+```text
 git clone https://github.com/ileeey88/autoscope.git
 cd autoscope
 Создайте и активируйте виртуальное окружение:
-
-bash
+```
+```text
 python -m venv .venv
+```
 # Windows:
+```text
 .venv\Scripts\activate
+```
 # Linux/Mac:
-# source .venv/bin/activate
-Установите зависимости:
+```text
+source .venv/bin/activate
+```
+## Установите зависимости:
 
-bash
+```text
 pip install -r requirements.txt
-Создайте файл .env в корне проекта и добавьте секретный ключ:
-
+```
+## Создайте файл .env в корне проекта и добавьте секретный ключ:
+```text
 env
 SECRET_KEY=super-secret-key-change-me-in-production
-Наполните базу данных тестовыми данными:
+```
+## Наполните базу данных тестовыми данными:
 
 bash
 python -m app.seed
